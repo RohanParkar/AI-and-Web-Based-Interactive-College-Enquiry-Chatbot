@@ -1,0 +1,1047 @@
+<html>
+
+<head>
+  <style>
+    html,
+    body {
+      background: white;
+      height: 100%;
+    }
+
+    #center-text {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+    }
+    
+
+    #chat-circle {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      background: #a01300;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      color: #c01700 ;
+      padding: 11px;
+      cursor: pointer;
+      box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .btn#my-btn {
+      background: white;
+      padding-top: 13px;
+      padding-bottom: 12px;
+      border-radius: 45px;
+      padding-right: 40px;
+      padding-left: 40px;
+      color: #a70c14;
+    }
+
+
+    #chat-overlay {
+      background: rgba(255, 255, 255, 0.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: none;
+    }
+    
+
+
+    .chat-box {
+      display: none;
+      background: #efefef;
+      position: fixed;
+      right: 30px;
+      bottom: 50px;
+      width: 350px;
+      max-width: 85vw;
+      max-height: 100vh;
+      border-radius: 25px;
+      /*   box-shadow: 0px 5px 35px 9px #464a92; */
+      box-shadow: 0px 5px 35px 9px #ccc;
+    }
+
+    .chat-box-toggle {
+      float: right;
+      margin-right: 20px;
+      margin-top: 22px;
+      cursor: pointer;
+    }
+
+    .chat-box-header {
+      background: #252525b0;
+      height: 70px;
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      color: white;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .bot-name {
+      float: left;
+      padding-top: 18px;
+      padding-left: 10px;
+      font-size: 23px;
+      
+    }
+
+    .logo {
+      padding-left: 1px;
+      padding-top: 4px;
+
+    }
+
+    .chat-box-body {
+      position: relative;
+      height: 370px;
+      height: auto;
+      border: 1px solid #ccc;
+      overflow: hidden;
+    }
+
+    .chat-box-body:after {
+      content: "";
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAgOCkiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgY3g9IjE3NiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTIwLjUuNWwyMyAxMW0tMjkgODRsLTMuNzkgMTAuMzc3TTI3LjAzNyAxMzEuNGw1Ljg5OCAyLjIwMy0zLjQ2IDUuOTQ3IDYuMDcyIDIuMzkyLTMuOTMzIDUuNzU4bTEyOC43MzMgMzUuMzdsLjY5My05LjMxNiAxMC4yOTIuMDUyLjQxNi05LjIyMiA5LjI3NC4zMzJNLjUgNDguNXM2LjEzMSA2LjQxMyA2Ljg0NyAxNC44MDVjLjcxNSA4LjM5My0yLjUyIDE0LjgwNi0yLjUyIDE0LjgwNk0xMjQuNTU1IDkwcy03LjQ0NCAwLTEzLjY3IDYuMTkyYy02LjIyNyA2LjE5Mi00LjgzOCAxMi4wMTItNC44MzggMTIuMDEybTIuMjQgNjguNjI2cy00LjAyNi05LjAyNS0xOC4xNDUtOS4wMjUtMTguMTQ1IDUuNy0xOC4xNDUgNS43IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg1LjcxNiAzNi4xNDZsNS4yNDMtOS41MjFoMTEuMDkzbDUuNDE2IDkuNTIxLTUuNDEgOS4xODVIOTAuOTUzbC01LjIzNy05LjE4NXptNjMuOTA5IDE1LjQ3OWgxMC43NXYxMC43NWgtMTAuNzV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjcxLjUiIGN5PSI3LjUiIHI9IjEuNSIvPjxjaXJjbGUgZmlsbD0iIzAwMCIgY3g9IjE3MC41IiBjeT0iOTUuNSIgcj0iMS41Ii8+PGNpcmNsZSBmaWxsPSIjMDAwIiBjeD0iODEuNSIgY3k9IjEzNC41IiByPSIxLjUiLz48Y2lyY2xlIGZpbGw9IiMwMDAiIGN4PSIxMy41IiBjeT0iMjMuNSIgcj0iMS41Ii8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkzIDcxaDN2M2gtM3ptMzMgODRoM3YzaC0zem0tODUgMThoM3YzaC0zeiIvPjxwYXRoIGQ9Ik0zOS4zODQgNTEuMTIybDUuNzU4LTQuNDU0IDYuNDUzIDQuMjA1LTIuMjk0IDcuMzYzaC03Ljc5bC0yLjEyNy03LjExNHpNMTMwLjE5NSA0LjAzbDEzLjgzIDUuMDYyLTEwLjA5IDcuMDQ4LTMuNzQtMTIuMTF6bS04MyA5NWwxNC44MyA1LjQyOS0xMC44MiA3LjU1Ny00LjAxLTEyLjk4N3pNNS4yMTMgMTYxLjQ5NWwxMS4zMjggMjAuODk3TDIuMjY1IDE4MGwyLjk0OC0xOC41MDV6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS4yNSIvPjxwYXRoIGQ9Ik0xNDkuMDUgMTI3LjQ2OHMtLjUxIDIuMTgzLjk5NSAzLjM2NmMxLjU2IDEuMjI2IDguNjQyLTEuODk1IDMuOTY3LTcuNzg1LTIuMzY3LTIuNDc3LTYuNS0zLjIyNi05LjMzIDAtNS4yMDggNS45MzYgMCAxNy41MSAxMS42MSAxMy43MyAxMi40NTgtNi4yNTcgNS42MzMtMjEuNjU2LTUuMDczLTIyLjY1NC02LjYwMi0uNjA2LTE0LjA0MyAxLjc1Ni0xNi4xNTcgMTAuMjY4LTEuNzE4IDYuOTIgMS41ODQgMTcuMzg3IDEyLjQ1IDIwLjQ3NiAxMC44NjYgMy4wOSAxOS4zMzEtNC4zMSAxOS4zMzEtNC4zMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L3N2Zz4=');
+      opacity: 0.1;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      border-bottom-right-radius: 25px;
+      border-bottom-left-radius: 25px;
+    }
+
+    #chat-input {
+      background: #f4f7f9;
+      width: 100%;
+      position: relative;
+      height: 47px;
+      padding-top: 10px;
+      padding-right: 120px;
+      padding-bottom: 10px;
+      padding-left: 15px;
+      border: none;
+      resize: none;
+      outline: none;
+      border: 3px solid #252525b0;
+      color: #888;
+      border-bottom-right-radius: 25px;
+      border-bottom-left-radius: 25px;
+      border-top-right-radius: 25px;
+      border-top-left-radius: 25px;
+      overflow: hidden;
+    }
+
+    .chat-input>form {
+      margin-bottom: 0;
+    }
+
+    #chat-input::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #ccc;
+    }
+
+    #chat-input::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #ccc;
+    }
+
+    #chat-input:-ms-input-placeholder {
+      /* IE 10+ */
+      color: #ccc;
+    }
+
+    #chat-input:-moz-placeholder {
+      /* Firefox 18- */
+      color: #ccc;
+    }
+
+    .chat-submit {
+      position: absolute;
+      bottom: 3px;
+      right: 20px;
+      padding-bottom: 32px;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      border-radius: 50%;
+      color: #a70c14;
+      width: 30px;
+      height: 30px;
+    }
+
+    .chat-submit2 {
+      position: absolute;
+      bottom: 3px;
+      right: 50px;
+      padding-bottom: 33px;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      border-radius: 50%;
+      color: #a70c14;
+      width: 30px;
+      height: 30px;
+    }
+
+    .chat-submit3 {
+      position: absolute;
+      bottom: 5px;
+      right: 87px;
+      padding-bottom: 33px;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      border-radius: 50%;
+      color: #a70c14;
+      width: 30px;
+      height: 30px;
+    }
+
+    .chat-logs {
+      padding: 15px;
+      height: 370px;
+      overflow-y: scroll;
+    }
+
+    .chat-logs::-webkit-scrollbar-track {
+
+      background-color: white;
+    }
+
+    .chat-logs::-webkit-scrollbar {
+      width: 5px;
+      background-color: rgb(43, 43, 43);
+    }
+
+    .chat-logs::-webkit-scrollbar-thumb {
+      background-color: #252525b0;
+    }
+
+
+
+    @media only screen and (max-width: 500px) {
+      .chat-logs {
+        height: 40vh;
+      }
+    }
+
+    .chat-msg.user>.msg-avatar img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      float: left;
+      width: 15%;
+    }
+
+    .chat-msg.self>.msg-avatar img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      float: right;
+      width: 15%;
+    }
+
+    .cm-msg-text {
+      background: #252525b0;
+      padding: 10px 15px 10px 15px;
+      color: rgb(255, 255, 255);
+      max-width: 75%;
+      float: left;
+      margin-left: 10px;
+      position: relative;
+      margin-bottom: 20px;
+      border-radius: 30px;
+      border: 2px solid;
+      border-color: #161616;
+    }
+
+    .chat-msg {
+      clear: both;
+    }
+
+    .chat-msg.self>.cm-msg-text {
+      float: right;
+      margin-right: 10px;
+      background: #ffcfcfb0;
+      color: #c41010;
+      font-size: 16px;
+      border: 2px solid;
+      border-color: #c41010;
+    }
+
+    .cm-msg-button>ul>li {
+      list-style: none;
+      float: left;
+      width: 50%;
+    }
+
+    .cm-msg-button {
+      clear: both;
+      margin-bottom: 70px;
+    }
+
+    /*time code */
+
+    .chat-msg1.user>.msg-avatar img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      float: left;
+      width: 15%;
+    }
+
+    .chat-msg1.self>.msg-avatar img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      float: right;
+      width: 15%;
+    }
+
+    .cm-msg1-text {
+      font-size: 13px;
+      color: black;
+      font-family: sans-serif;
+      max-width: 75%;
+      float: left;
+      margin-left: 4px;
+      position: relative;
+      margin-bottom: 20px;
+      border-radius: 30px;
+    }
+
+    .chat-msg1 {
+      clear: both;
+    }
+
+    .chat-msg1.self>.cm-msg1-text {
+      float: right;
+      font-family: sans-serif;
+      margin-right: 4px;
+      color: black;
+      font-size: 13px;
+    }
+
+    /*faq code */
+
+    .faqh4{
+      color: red;
+
+    }
+    .chat-faq{
+     
+     position: absolute;
+     bottom: 3px;
+     right: 25px;
+     background: transparent;
+     box-shadow: none;
+     border: none;
+     border-radius: 50%;
+     color: #5A5EB9;
+     width: 35px;
+     height: 35px;
+   
+   }
+ 
+ /* The popup chat - hidden by default */
+.faq-popup {
+ display: none;
+ position: fixed;
+ bottom: 0;
+ right: 15px;
+ border: 3px solid #f1f1f1;
+ z-index:0;
+
+}
+
+/* Add styles to the form container */
+.form-container {
+ height: 520px;
+ width: 365px;
+ padding: 10px;
+ background-color: #3b3b3b;
+ color: white;
+ overflow:scroll;
+}
+
+
+
+.form-container .cancel {
+ background-color: #ff0e0e;
+}
+
+
+.txt-cpy {
+ border: none;
+ background-color: inherit;
+
+}
+
+.txt-cpy:hover {background: rgba(77, 77, 77, 0.507);}
+
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+ opacity: 1;
+}
+
+
+/*auot compltet*/
+.autocomplete-items {
+ 
+ position: absolute;
+ border: 1px solid #d4d4d4;
+ border-bottom: none;
+ border-top: none;
+ z-index: 99;
+ /*position the autocomplete items to be the same width as the container:*/
+ bottom: 100%;
+ left: 0;
+ right: 0;
+ overflow: scroll;
+ max-height: 200px;
+}
+
+
+.autocomplete {
+position: relative;
+display: inline-block;
+width: 100%;
+
+}
+
+
+
+.autocomplete-items div {
+padding: 10px;
+cursor: pointer;
+background-color: #fff; 
+border-bottom: 1px solid #d4d4d4;
+z-index: -2;
+
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+background-color: DodgerBlue;
+color: #ffffff; 
+}
+
+
+/* website*/
+.card-title{
+      text-align: center;
+    padding-top: 5px;
+    }
+
+/* */
+    .topnav {
+  overflow: hidden;
+  background-color: #333;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius:8px ;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #a70c14;
+  color:white;
+}
+
+.topnav a.active {
+  background-color: #a70c14;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+
+
+
+
+  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+    integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+    integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+    crossorigin="anonymous"></script>
+  <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <img src="https://i.ibb.co/b3dD3FV/APSIT-New-Logo.png" alt="APSIT-New-Logo" height="auto" width="120px"  style="padding-top: 10px;padding-bottom: 10px; border:0; ">
+        </div>
+      </div>
+    <div class="row" style="padding-bottom: 10px;">
+      <div class="col-md-12">
+        <div class="topnav" id="myTopnav">
+          <a href="#home" class="active">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="https://www.linkpicture.com/q/1_209.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://www.linkpicture.com/q/2_724.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://www.linkpicture.com/q/3_96.jpg" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 20px;">
+      <div class="col-md-12">
+        <div class="card-group">
+          <div class="card-deck">
+            <div class="card">
+              <h5 class="card-title">Computer Engineering</h5>
+              <img src="https://i.ibb.co/XXnk06b/code-0.jpg" alt="code-0" style="border:0;">
+              <div class="card-body">
+                <p class="card-text">Department of Computer Engineering is the largest and most research strong department of its kind in Mumbai University. The Department was established in 2014 and currently offers a B.E in Computer Engineering.</p>
+              </div>
+            </div>
+            <div class="card">
+              <h5 class="card-title" >Mechanical Engineering</h5>
+              <img src="https://i.ibb.co/x84cm4L/mech.jpg" alt="mech" style="border:0;">
+              <div class="card-body">
+                <p class="card-text">MECHANICAL ENGINEERING is the discipline that applies the principles of Mechanics and Materials Science for the analysis, design, manufacturing and maintenance of machines. It is one of the oldest and broadest of the engineering disciplines aptly known as mother of all branches.</p>
+              
+              </div>
+            </div>
+            <div class="card">
+              <h5 class="card-title">Civil Engineering</h5>
+              <img src="https://i.ibb.co/Dtt4SnT/civil.jpg" alt="civil" style="border:0;">
+              <div class="card-body">
+                <p class="card-text">Welcome to the Department of Civil Engineering at APSIT. Department of Civil Engineering reflects the importance and legacy of the discipline. The Civil Engineering is the basic branch of Engineering.</p>
+               
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action list-group-item-light active">
+            NOTIFICATIONS
+          </button>
+          <button type="button" class="list-group-item list-group-item-action">BE Exam University Circular 2020</button>
+          <button type="button" class="list-group-item list-group-item-action">Scholarships</button>
+          <button type="button" class="list-group-item list-group-item-action">SAP University Alliances</button>
+          <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
+        </div>
+      </div>
+       <div class="col-md-4">
+      <img src="https://i.ibb.co/L5Cp4Bd/NBA.jpg" alt="NBA" height="400px" width="379px">
+       </div>
+       <div class="col-md-4" style="padding-left: 30px;">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Institute Vision</h5>
+            <p class="card-text">
+              APSIT aspires to be a premier institute producing globally competent engineering professionals to contribute towards socio-economic growth of India.
+            </p>
+          </div>
+          <div class="card-body" style="padding-top: 20px;">
+            <h5 class="card-title">Institute Mission</h5>
+            <p class="card-text">
+              To provide conducive and collaborative environment to meet contemporary & future Engineering challenges by project based and value-added education with the support of trained faculty.
+            </p>
+          </div>
+        </div>
+       </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <footer class="bg-light text-center text-lg-start">
+          <!-- Grid container -->
+  
+          <!-- Copyright -->
+          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
+        </div>
+      </div>
+    <div id="body">
+
+      <div id="chat-circle" class="btn btn-raised">
+        <div id="chat-overlay"></div>
+        <img class="logo" src="https://www.linkpicture.com/q/bot.png" alt="" height="50px" width="50px">
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-box-header">
+          <span class="chat-box-toggle"><img class="cancel" src="https://www.linkpicture.com/q/cancel.png" alt="" height="25px" width="25px"></span>
+          <span><img src="https://www.linkpicture.com/q/redlogo.jpg" alt="" height="55px" width="55px" style="margin-left: auto;margin-right: auto;padding-bottom:8px; padding-top: 8px; padding-left: 10px; float: left; height: 70; width: 65; border: 40;"><p class="bot-name">ApsitBot</p> &nbsp;</span>
+        </div>
+        <div class="chat-box-body">
+          <div class="chat-box-overlay">
+          </div>
+          <div class="chat-logs">
+
+          </div>
+          <!--chat-log -->
+        </div>
+        <div class="chat-input">
+          <form class="txt autocomplete" autocomplete="off" action="/action_page.php">
+            <input type="text" class="autocomplete" id="chat-input" placeholder="Send a message..." required/>
+
+            <button type="button" class="chat-submit2" id="chat-submit2" onclick="runSpeechRecognition()">
+              <img src="https://www.linkpicture.com/q/voice.png" height="25px" width="25px"/></button><span id="action"></span>
+            <button type="submit" class="chat-submit" id="chat-submit"><img src="https://www.linkpicture.com/q/send.png" height="25px" width="25px"/></button>
+          </form>
+
+          <form class="faq">
+            <button type="button" class="chat-submit3" id="chat-faq" onclick="openForm()" ><img src="https://www.linkpicture.com/q/faq_1.png" height="30px" width="30px"/></button>  
+          </form>
+        </div>
+      </div>
+      <div class="faq-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+          <h3 class="faqh4">FAQ</h3>
+         <p>
+          <button type="button" id="q1" class="txt-cpy" onclick="copysend(this.id)" >Where is college located?</button><br>
+          <button type="button" id="q2" class="txt-cpy" onclick="copysend(this.id)" >Timings of college ?</button><br>
+          <button type="button" id="q3" class="txt-cpy" onclick="copysend(this.id)" >Academic calender ?</button><br>
+          <button type="button" id="q4" class="txt-cpy" onclick="copysend(this.id)" >Is parking available ?</button><br>
+          <button type="button" id="q5" class="txt-cpy" onclick="copysend(this.id)" >what are the facilities in college ?</button><br>
+          <button type="button" id="q6" class="txt-cpy" onclick="copysend(this.id)" >College social media handles ?</button><br>
+          <button type="button" id="q7" class="txt-cpy" onclick="copysend(this.id)" >College payment portal ?</button><br>
+          <button type="button" id="q8" class="txt-cpy" onclick="copysend(this.id)" >College study portal ?</button><br>
+          <button type="button" id="q9" class="txt-cpy" onclick="copysend(this.id)" >College admission process ?</button><br>
+          <button type="button" id="q10" class="txt-cpy" onclick="copysend(this.id)" >Documents for college admission ?</button><br>
+
+        </p>	
+        
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+
+
+
+
+    </div>
+  </div>
+</body>
+<script>
+  var INDEX = 0;
+  var socket = io.connect('http://' + document.domain + ':' + location.port)
+  // broadcast a message
+
+  socket.on('connect', function () {
+    socket.emit('my event', {
+      data: 'User Connected'
+    })
+    var form = $(".txt").on('submit', function (e) {
+      e.preventDefault()
+      let user_name = "Student"
+      let user_input = $("#chat-input").val()
+
+      socket.emit('my eventes', {
+        user_name: user_name,
+        message: user_input
+      })
+    })
+  })
+
+
+
+
+
+
+  // capture message
+  socket.on('my response', function (msg) {
+    console.log(msg)
+    if (typeof msg.user_name !== 'undefined') {
+
+      generate_message(msg.message, 'self');
+      setTimeout(function () {
+        generate_message(msg.answer, 'user');
+      }, 1000)
+
+
+    }
+  })
+
+
+
+
+  function generate_message(msg, type) {
+    var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                
+                // Check whether AM or PM
+                var newformat = hours >= 12 ? 'PM' : 'AM'; 
+                
+                // Find current hour in AM-PM Format
+                hours = hours % 12; 
+                
+                // To display "0" as "12"
+                hours = hours ? hours : 12; 
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                
+                var datetime = 
+                  hours + ':' + minutes + ' ' + newformat;
+
+    INDEX++;
+    var str = "";
+    str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + "\">";
+    str += "          <span class=\"msg-avatar\">";
+    if (type == 'self') {
+    str += "            <img src=\"https:\/\/www.linkpicture.com\/q\/filename-1.jpg\">"
+    }else{
+    str += "            <img src=\"https:\/\/www.linkpicture.com\/q\/filename.jpg\">"
+    }
+    str += "          <\/span>";
+    str += "          <div class=\"cm-msg-text\">";
+    str += msg;
+    str += "          <\/div>";
+    str += "        <\/div>";
+    //time code
+    str += "<div id='cm-msg1-" + INDEX + "' class=\"chat-msg1 " + type + "\">";
+    str += "          <div class=\"cm-msg1-text\">";
+    str += datetime;     
+    str += "          <\/div>";
+    str += "        <\/div>"; 
+    $(".chat-logs").append(str);
+    if (type == 'user') {
+      var audio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3 ");
+      audio.play();
+
+    }
+    $("#cm-msg-" + INDEX).hide().fadeIn(300);
+    if (type == 'self' && msg !== "FAQ") {
+      $("#chat-input").val('');
+    }
+    $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+  }
+
+  
+
+
+  $(document).delegate(".chat-btn", "click", function () {
+    var value = $(this).attr("chat-value");
+    var name = $(this).html();
+    $("#chat-input").attr("disabled", false);
+    generate_message(name, 'self');
+  })
+
+  $("#chat-circle").click(function () {
+    $("#chat-circle").toggle('scale');
+    $(".chat-box").toggle('scale');
+  })
+
+  $(".chat-box-toggle").click(function () {
+    $("#chat-circle").toggle('scale');
+    $(".chat-box").toggle('scale');
+  })
+
+
+  function runSpeechRecognition() {
+    // get output div reference
+    var output = document.getElementById("chat-input").value;
+    // get action element reference
+    var action = document.getElementById("action").value;
+    //var dis = document.getElementById("dis").value;
+    // new speech recognition object
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+
+    // This runs when the speech recognition service starts
+    recognition.onstart = function () {
+      action.innerHTML = "listening, please speak...";
+    };
+
+    recognition.onspeechend = function () {
+      action.innerHTML = "stopped listening, hope you are done...";
+      recognition.stop();
+    }
+
+    // This runs when the speech recognition service returns result
+    recognition.onresult = function (event) {
+      var transcript = event.results[0][0].transcript;
+      var confidence = event.results[0][0].confidence;
+      //output.innerHTML = "<b>Text:</b> " + transcript + "<br/> <b>Confidence:</b> " + confidence*100+"%";
+      document.getElementById("chat-input").value = transcript;
+    };
+
+    // start recognition
+    recognition.start();
+  }
+
+
+  function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+
+function copysend(i) {
+  var x = document.getElementById(i).textContent;
+  document.getElementById("chat-input").value = x; 
+  document.getElementById("myForm").style.display = "none"; 
+}
+
+$("#chat-circle").one( "click", generate_message('Welcome to ApsitBot !<br> How can I help you ?','user')  );
+
+
+/*auto complete*/
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase().includes(val.toUpperCase())) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementbyId("chat-input");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+/*An array containing all the country names in the world:*/
+var questions = [
+ 'What is the timing of college ?', 'When can I visit the college ?', 'When is the college open ?', 'What are the college office timings ?',
+ 'When is the college close ?', 'College time ?', 'College office time ?', 'College office timings ?', 'Location of college ?', 'Where is the college ?', 'How can I reach the college ?', 'Where is the college located ?', 'What is the address of the college ?', 'What is the area of your campus college ?', 'How far is A.P.Shah college from my home ?', 
+ 'Any landmark for locating college ?', 'address of college ?', 'locate college ?','what facilities does college have ?', 'what are the facilities in college ?', 'college facilities ? ', 'what facilities does the college provide ?', 'facilities provided by college ?', 'does the college have parking ?', 'is there parking in college ?', 'parking in college ?',
+  'Is there parking for students ?', 'is parking facility available in college ?', 'Is placement available in college ?', 'does college have placements', 'information regarding placements ?', 'is there a placement cell ?', 'recruiters for placement ?', 'what are the placement records ?', 'placement records of college ?', 'Schedule of college ?', 
+  "What is this week's schedule ?", 'is there any holiday this week ?', 'Academic calendar?', 'Show me academic calendar ?', 'Schedule for this sem ?', 'Schedule for this semester ?', 'academic calender ?', 'student council ?', 'who are the members of student council ?', 'Names of student council members ?', 'list of student ?', 'what approvals do college have ?', 
+  'approvals of college ?', 'is college Affiliated ? ', 'college Affiliation ?', 'what Accreditation do college have ?', 'college Accreditation ?', 'NBA Accreditation ?', 'Who is the Principal of college ?', 'Name of Principal ?', 'College Principal ?', 'principal of college ?', 'Who is the Dean of college ?', 'Name of College Dean ?', 'College Dean ?', 
+  'dean of college ?', 'Who are the Trustees of college?', 'Owner of college ?', 'college trustee ?', 'Name of college trustee ?', 'What is the college moto ?', 'What is the vision and mission of the college ?', 'What is the vision of the college ?', 'What is the mission of the college ?', 'College mission', 'College vision', 'vision of college ?', 
+  'mission of college ?', 'what is the name of college  cultural fest ?', 'Ojus', 'Is there any cultural fest ?', 'what is ojus ?', 'information about cultural fest ?', 'cultural event in college ?', 'cultural fest in college ?', 'what is the name of college technical fest ?', 'Exalt', 'Is there any technical fest ?', 'Is there any technical event ?',
+   'more information about technical fest ?', 'technical fest in college ?', 'How many departments are there in the college ?', 'departments in college ?', 'What engineering departments are in college ?', 'Show information about college departments ?', 'How many departments ?', 'Number of departments ?', 'Is college wheelchair accessible ?', 
+   'Is college wheelchair frienldy ?', 'Is the college compatible with disabilities ?', 'Is the college wheel-chair accessible ?', 'Is there any Bus stop near the college ?', 'college bustop ?', 'what bus stop is near by college ?', 'bus stops near college ?', 'college bus stops nearby ?', 'Is there any railway station near the college ?', 
+   'Which railway station is nearer to the college ?', 'Which is the nearest railway station ?', 'station nearby ?', 'nearest railway station ?', 'What is the fee structure ?', 'Is there any fee payment portal ?', 'How to check your fee payment status ?', 'How to pay fee ?', 'where do you pay pays ?', 'where can i pay fees ?', 'where do i check my fees ?',
+    'payment portal ?', 'fee structure of this year ?', 'what is admission process ?', 'admission process ?', 'admission form ?', 'documents required for admission ?', 'admission documents ?', 'information about admission process ?', 'what is admission criteria ?', 'admission criteria ?', 'criteria for admission ?', 'college criteria ?', 
+    'criteria for college admission ?', 'what is pbl ?', 'what is project based learning ?', 'how to apply for project based learning ?', 'how to apply for pbl ?', 'project based learning ?', 'project based learning courses ?', 'pbl courses ?', 'List of faculties of computer department ?', 'Faculty details of the comps department ?', 
+    'Faculty of computer department ?', 'Show me the facility of comps department ?', 'show me faculty of computer department ?', 'List of faculties of mechanical department ?', 'Faculty details of the mech department ?', 'Faculty of mechanical department ?', 'Show me the facility of mech department ?', 'show me faculty of mech department ?', 
+    'List of faculties of Information technology department ?', 'Faculty details of the IT department ?', 'Faculty of IT department ?', 'Show me the facility of Information technology department ?', 'show me faculty of it department ?', 'List of faculties of Electronics department ?', 'Faculty details of the EXTC department ?', 
+    'Faculty of extc department ?', 'Show me the facility of Electronics and telecommunication department ?', 'show me faculty of EXTC department ?', 'List of faculties of civil department ?', 'Faculty details of the civil department ?', 'Faculty of civil department ?', 'Show me the facility of civil department ?', 'show me faculty of civil department ?', 
+    'List of faculties of HAS department ?', 'Faculty details of the H&AS department ?', 'Faculty of first year department ?', 'Show me the facility of FE department ?', 'show me faculty of Humanities and applied sciences department ?', 'What is number of intake for Mechanical department ?', 'intake of mech ?', 'Number of seats in Mech department ?', 
+    'seats in mechanical department ?', 'What is number of intake for Information technology department ?', 'intake of IT ?', 'Number of seats in Information technology department ?', 'seats in IT department ?', 'What is number of intake for comps department ?', 'intake of comps ?', 'Number of seats in computer department ?', 'seats in computer department ?', 
+    'What is number of intake for Electronics and telecommunication department ?', 'Intake of EXTC ?', 'Number of seats in EXTC department ?', 'seats in EXTC department ?', 'seats in  Electronics and telecommunication department ?', 'What is number of intake for Civil department ?', 'Intake of civil ?', 'Number of seats in civil department ?', 
+    'seats in civil department ?', 'What is the intake of each department ?', 'Total intake of college ?', 'Intake of all departments ?', 'how many seats in all departments ?', 'Who is HOD of the Computer department ?', 'HOD of the Computer department ?', 'Name of HOD of Computer department ?', 'Head Of computer department ?', 'Who is HOD of the Comps department ?', 
+    'Who is HOD of the Civil department ?', 'HOD of the Civil department ?', 'Name of HOD of Civil department ?', 'Head of civil department ?', 'Who is HOD of the Mechanical department ?', 'HOD of the Mechanical department ?', 'Name of HOD of Mechanical department ?', 'Head of Mechanical department ?', 'Who is HOD of the IT department ?', 'HOD of the IT department ?',
+     'Name of HOD of IT department ?', 'Head of IT department ?', 'Who is HOD of the Information Technology department ?', 'Who is HOD of the Electronics and telecommunication department ?', 'HOD of the EXTC department ?', 'Name of HOD of EXTC department ?', 'Head of EXTC department ?', 'Who is HOD of the Electronics and telecommunication department ?',
+      'HOD of extc department ?', 'Who is HOD of the First year department ?', 'Who is HOD of the H&AS  department ?', 'Who is HOD of the Humanities and applied sciences  department ?', 'Name of HOD of H&AS department ?', 'Name of HOD of Humanities and applied sciences department ?', 'HOD of FE ?', 'Head of department of H & AS ?', 
+      'college social media handles ?', 'facebook', 'instagram', 'college facebook page ?', 'college instagram page ?', 'do college have social media handles ?', 'social media handles ?', 'College moodle ?', 'study portal for students ?', 'college study portal ?', 'apit moodel ?', 'study portal for college ?', 'new and announcements ?', 
+      'news about examination ?', 'exam time table ?', 'results of college ?', 'seat numbers of lastest examination ?', 'lastest results declared ?', 'new announcements ?', 'new and announcements of college ?', 'downloads for students ?', 'downloads for faculties ?', 'downloads ?', 'download forms ?', 'download documents ?',
+       'all dowmloads ?', 'is there counselling in college ?', 'does college have counselling facility ', 'counselling ?', 'does the college have counsellor ?', 'who is the counsellor of college ?', 'Name of counsellor ?', 'tell me more about computer department ?', 'comps department ?', 'more information about computer department ? ', 
+       'About computer department', 'computer department of college ?', 'tell me more about IT department ?', 'IT department ?', 'more information about information technology department ? ', 'About information technology department', 'IT department of college ?', 'tell me more about extc department ?', 'Electronics and telecommunication department ?', 
+       'more information about extc department ? ', 'About Electronics department', 'extc department of college ?', 'tell me more about mech department ?', 'mechanical department ?', 'more information about mechanical department ? ', 'About mech department', 'mechanical department of college ?', 'tell me more about civil department ?', 'civil department ?',
+        'more information about civil department ? ', 'About civil department', 'civil department of college ?', 'show me photos pf college ?', 'college pics ?', 'college photos ? ', 'show me photos of college ?', 'how does the college look ?'];
+
+
+autocomplete(document.getElementById("chat-input"), questions);
+
+
+
+
+
+
+</script>
+
+</html>

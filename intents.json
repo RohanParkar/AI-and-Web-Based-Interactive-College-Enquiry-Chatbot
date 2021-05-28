@@ -1,0 +1,273 @@
+{
+	"intents":[
+		{
+			"tag":"greeting",
+			"patterns":["Hi","hii","hiii","hey","hello","hi there","Good morning","Good afternoon"],
+			"responses":["Hey ! how can i help you ?"]
+		},
+		{
+			"tag":"thanks",
+			"patterns":["Thanks","Thanks a lot","Thank you!","thank you so much!","Thanks for your help !"],
+			"responses":["You are welcome!"]
+		},
+		{
+			"tag":"byee",
+			"patterns":["bye","byee","see you soon ","exit","quit"],
+			"responses":["byee ! see you soon !"]
+		},
+		{
+			"tag":"time",
+			"patterns":["What is the timing of college ?","When can I visit the college ?","When is the college open ?","What are the college office timings ?","When is the college close ?","College time ?","College office time ?","College office timings ?"],
+			"responses":["Monday To Friday","9am to 5pm"]
+		},
+		{
+			"tag":"location",
+			"patterns":["Location of college ?","Where is the college ?","How can I reach the college ?","Where is the college located ?","What is the address of the college ?","What is the area of your campus college ?","How far is A.P.Shah college from my home ?","Any landmark for locating college ?","address of college ?","locate college ?"],
+			"responses":["Survey No. 12, Ghodbunder","Rd,opp. Hypercity Mall, Kasarvadavali,","Thane West, Thane, Maharashtra 400615","Location : ","<iframe src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15065.325607341603!2d72.9669988!3d19.2679493!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x20e1357d640bef7e!2sA.%20P.%20Shah%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1621241846235!5m2!1sen!2sin' width='200' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>"]
+		},
+		{
+			"tag":"facilities",
+			"patterns":["what facilities does college have ?","what are the facilities in college ?","college facilities ? ","what facilities does the college provide ?","facilities provided by college ?"],
+			"responses":[" Our college has library, Canteen,"," AC classrooms and laboratory, 4 elevators, 2 Auditoriums,","Music Room, Boys room and Girls room"]
+		},
+		{
+			"tag":"Parking",
+			"patterns":["does the college have parking ?","is there parking in college ?","parking in college ?","Is there parking for students ?","is parking facility available in college ?"],
+			"responses":["Parking facility for 2 wheeler and 4 wheeler is ","available for faculty and students as well."]
+		},
+		{
+			"tag":"Placement",
+			"patterns":["Is placement available in college ?","does college have placements","information regarding placements ?","is there a placement cell ?","recruiters for placement ?","what are the placement records ?","placement records of college ?"],
+			"responses":["We have Training and Placement department in ","our college. To know more click on the links below :","T & P department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/vision-and-mission-t-p' target='_blank'>Click here!<\/a>","Our Recruiters: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/our-recruiters' target='_blank'>Click here!<\/a>","Placement Records: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/placement-record' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"Academic_calendar",
+			"patterns":["Schedule of college ?","What is this week's schedule ?","is there any holiday this week ?","Academic calendar?","Show me academic calendar ?","Schedule for this sem ?","Schedule for this semester ?","academic calender ?"],
+			"responses":["To check out academic calendar : <a style=\"color:#00fff2\" href='http:\/\/moodle.apsit.org.in\/moodle\/pluginfile.php\/61514\/mod_url\/intro\/1.%20Academic%20Calender%20.doc' target='_blank'>Download now!<\/a>"]
+		},
+		{
+			"tag":"Student_council",
+			"patterns":["student council ?","who are the members of student council ?","Names of student council members ?","list of student ?"],
+			"responses":["General Secretary: Mayur Mane","Cultural Secretary: Khushal Dey","Sports Secretary: Kaushal Kedar","Joint Cultural Secretary: Anagha Rai, Sakshi Shinde","Joint Sports Secretary: Vinay Chavan, Anushka Gaikwad","Ladies Representative: Janhavi Shinde","Ladies Representative: Aastha Patil, Riddhi Bhoir","To know more about student council: <a style=\"color:#00fff2\" href=' https:\/\/www.apsit.edu.in\/student-council' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"approvals",
+			"patterns":["what approvals do college have ?","approvals of college ?","is college Affiliated ? ","college Affiliation ?","what Accreditation do college have ?","college Accreditation ?","NBA Accreditation ?"],
+			"responses":["2020-21","1. AICTE (All India Council for Technical Education) Approval","2. University Affiliation","3. University Affiliation - All Courses","4. NBA Accreditation","5. Government Resolution","6. DTE Permission","To check all approvals: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/permissions' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"principal",
+			"patterns":["Who is the Principal of college ?","Name of Principal ?","College Principal ?","principal of college ?"],
+			"responses":["Dr. Uttam D. Kolekar","Principal","PhD (Electronics and Telecommunication Engineering)"]
+		},
+		{
+			"tag":"dean",
+			"patterns":["Who is the Dean of college ?","Name of College Dean ?","College Dean ?","dean of college ?"],
+			"responses":["Dean Academics : Prof. Atul M. Deshpade ","Dean Administration : Dr. Sameer S. Nanivadekar PhD ( Electronics and Telecommunication Engineering"]
+		},
+		{
+			"tag":"trustees",
+			"patterns":["Who are the Trustees of college?","Owner of college ?","college trustee ?","Name of college trustee ?"],
+			"responses":["SHRI. CHIRAG A. SHAH,     CHAIRMAN","SHRI. NIRANJAN P. SHAH,     SECRETARY","SMT. NEELA A. SHAH,     TRUSTEE","SMT. POOJA C. SHAH,     TRUSTEE","SHRI. KUNTHAL N. SHAH,     TRUSTEE","SHRI. MINESH N. SHAH,     TRUSTEE","To know more: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/parshvanath-charitable-trust' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"vissionmission",
+			"patterns":["What is the college moto ?","What is the vision and mission of the college ?","What is the vision of the college ?","What is the mission of the college ?","College mission","College vision","vision of college ?","mission of college ?"],
+			"responses":["Vision :","APSIT aspires to be a premier institute producing globally competent ","engineering professionals to contribute towards socio-economic growth of India."," ","Mission :","To provide conducive and collaborative environment to meet contemporary ","& future Engineering challenges by project based and value-added education ","with the support of trained faculty."]
+		},
+		{
+			"tag":"ojus",
+			"patterns":["what is the name of college  cultural fest ?","Ojus","Is there any cultural fest ?","what is ojus ?","information about cultural fest ?","cultural event in college ?","cultural fest in college ?"],
+			"responses":["Ojus is the cultural fest of the college.","To know more about Ojus: <a style=\"color:#00fff2\" href=' http:\/\/ojus.eventsapsit.org\/ ' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"exalt",
+			"patterns":["what is the name of college technical fest ?","Exalt","Is there any technical fest ?","Is there any technical event ?","more information about technical fest ?","technical fest in college ?"],
+			"responses":["Exalt is the Technical fest of the college.","To know more about Exalt: <a style=\"color:#00fff2\" href=' https:\/\/www.apsit.edu.in\/exalt-2019 ' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"departments",
+			"patterns":["How many departments are there in the college ?","departments in college ?","What engineering departments are in college ?","Show information about college departments ?","How many departments ?","Number of departments ?"],
+			"responses":["Engineering Departments :","1. CIVIL ENGINEERING","2. COMPUTER ENGINEERING","3. ELECTRONICS AND TELECOMMUNICATION ENGINEERING","4. INFORMATION TECHNOLOGY ENGINEERING","5. MECHANICAL ENGINEERING","Website: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"disability",
+			"patterns":["Is college wheelchair accessible ?","Is college wheelchair frienldy ?","Is the college compatible with disabilities ?","Is the college wheel-chair accessible ?"],
+			"responses":["College is wheelchair accessible."]
+		},
+		{
+			"tag":"bus_stop",
+			"patterns":["Is there any Bus stop near the college ?","college bustop ?","what bus stop is near by college ?","bus stops near college ?","college bus stops nearby ?"],
+			"responses":["Kasarvadavli bus stop","hypercity bus stop"]
+		},
+		{
+			"tag":"station",
+			"patterns":["Is there any railway station near the college ?","Which railway station is nearer to the college ?","Which is the nearest railway station ?","station nearby ?","nearest railway station ?"],
+			"responses":["Thane Railway station"]
+		},
+		{
+			"tag":"fee",
+			"patterns":["What is the fee structure ?","Is there any fee payment portal ?","How to check your fee payment status ?","How to pay fee ?","where do you pay pays ?","where can i pay fees ?","where do i check my fees ?","payment portal ?","fee structure of this year ?"],
+			"responses":["Fee Structure: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/fee-structure-2020-21' target='_blank'>Click here!<\/a>","Payment Portal: <a style=\"color:#00fff2\" href='https:\/\/admission.apsit.org.in\/new\/pay.php' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"admission_process",
+			"patterns":["what is admission process ?","admission process ?","admission form ?","documents required for admission ?","admission documents ?","information about admission process ?"],
+			"responses":["Admission documents: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/admission-documents' target='_blank'>Click here!<\/a>","Admission form: <a style=\"color:#00fff2\" href='https:\/\/admission.apsit.org.in\/web' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"admission_criteria",
+			"patterns":["what is admission criteria ?","admission criteria ?","criteria for admission ?","college criteria ?","criteria for college admission ?"],
+			"responses":["Admission criteria: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/admission-criteria' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"pbl",
+			"patterns":["what is pbl ?","what is project based learning ?","how to apply for project based learning ?","how to apply for pbl ?","project based learning ?","project based learning courses ?","pbl courses ?"],
+			"responses":["project based learning","12 Courses offered across various disciplines","list of courses: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/project-based-learning-pbl' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"faculties_comps",
+			"patterns":["List of faculties of computer department ?","Faculty details of the comps department ?","Faculty of computer department ?","Show me the facility of comps department ?","show me faculty of computer department ?"],
+			"responses":["List of Computer Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/computer-faculty' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"faculties_mech",
+			"patterns":["List of faculties of mechanical department ?","Faculty details of the mech department ?","Faculty of mechanical department ?","Show me the facility of mech department ?","show me faculty of mech department ?"],
+			"responses":["List of Mechanical Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/mechanical-faculty' target='_blank'>Click here!<\/a>"]
+		},{
+			"tag":"faculties_it",
+			"patterns":["List of faculties of Information technology department ?","Faculty details of the IT department ?","Faculty of IT department ?","Show me the facility of Information technology department ?","show me faculty of it department ?"],
+			"responses":["List of IT Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/Information-faculty' target='_blank'>Click here!<\/a>"]
+		},{
+			"tag":"faculties_extc",
+			"patterns":["List of faculties of Electronics department ?","Faculty details of the EXTC department ?","Faculty of extc department ?","Show me the facility of Electronics and telecommunication department ?","show me faculty of EXTC department ?"],
+			"responses":["List of EXTC Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/electronicandtelecom-faculty' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"faculties_civil",
+			"patterns":["List of faculties of civil department ?","Faculty details of the civil department ?","Faculty of civil department ?","Show me the facility of civil department ?","show me faculty of civil department ?"],
+			"responses":["List of Civil Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/civil-faculty' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"faculties_has",
+			"patterns":["List of faculties of HAS department ?","Faculty details of the H&AS department ?","Faculty of first year department ?","Show me the facility of FE department ?","show me faculty of Humanities and applied sciences department ?"],
+			"responses":["List of H&AS Department faculty: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/has-faculty' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake_mech",
+			"patterns":["What is number of intake for Mechanical department ?","intake of mech ?","Number of seats in Mech department ?","seats in mechanical department ?"],
+			"responses":["MECHANICAL ENGINEERING - 120","<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake_it",
+			"patterns":["What is number of intake for Information technology department ?","intake of IT ?","Number of seats in Information technology department ?","seats in IT department ?"],
+			"responses":["INFORMATION TECHNOLOGY ENGINEERING - 120","<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake_comps",
+			"patterns":["What is number of intake for comps department ?","intake of comps ?","Number of seats in computer department ?","seats in computer department ?"],
+			"responses":["COMPUTER ENGINEERING - 180","<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake_extc",
+			"patterns":["What is number of intake for Electronics and telecommunication department ?","Intake of EXTC ?","Number of seats in EXTC department ?","seats in EXTC department ?","seats in  Electronics and telecommunication department ?"],
+			"responses":["ELECTRONICS AND TELECOMMUNICATION ENGINEERING - 60","<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake_civil",
+			"patterns":["What is number of intake for Civil department ?","Intake of civil ?","Number of seats in civil department ?","seats in civil department ?"],
+			"responses":["CIVIL ENGINEERING - 120","<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"intake",
+			"patterns":["What is the intake of each department ?","Total intake of college ?","Intake of all departments ?","how many seats in all departments ?"],
+			"responses":["1.CIVIL ENGINEERING - 120","2.COMPUTER ENGINEERING - 180","3.ELECTRONICS AND TELECOMMUNICATION ENGINEERING - 60","4.INFORMATION TECHNOLOGY ENGINEERING - 120","5.MECHANICAL ENGINEERING - 120","For more info:<a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/ug-courses' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"hod_comps",
+			"patterns":["Who is HOD of the Computer department ?","HOD of the Computer department ?","Name of HOD of Computer department ?","Head Of computer department ?","Who is HOD of the Comps department ?"],
+			"responses":["Prof. Sachin Malave","Profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/prof-sachin-h-malave' target='_blank'>Click here!<\/a>"]
+		},
+		{	"tag":"hod_civil",
+			"patterns":["Who is HOD of the Civil department ?","HOD of the Civil department ?","Name of HOD of Civil department ?","Head of civil department ?"],
+			"responses":["Prof. Upendra Mate","Profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/prof-upendra-mate' target='_blank'>Click here!<\/a>"]
+		},
+		{	
+			"tag":"hod_mech",
+			"patterns":["Who is HOD of the Mechanical department ?","HOD of the Mechanical department ?","Name of HOD of Mechanical department ?","Head of Mechanical department ?"],
+			"responses":["Prof. V S Rao, Mechanical","Profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/prof-venkatesh-s-rao' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"hod_it",
+			"patterns":["Who is HOD of the IT department ?","HOD of the IT department ?","Name of HOD of IT department ?","Head of IT department ?","Who is HOD of the Information Technology department ?"],
+			"responses":["Prof. Kiran Deshpande","Profile: <a style=\"color:#00fff2\" href=' https:\/\/www.apsit.edu.in\/prof-kiran-b-deshpande ' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"hod_extc",
+			"patterns":["Who is HOD of the Electronics and telecommunication department ?","HOD of the EXTC department ?","Name of HOD of EXTC department ?","Head of EXTC department ?","Who is HOD of the Electronics and telecommunication department ?","HOD of extc department ?"],
+			"responses":["Prof. Atul Deshpande","Profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/prof-atul-deshpande' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"hod_has",
+			"patterns":["Who is HOD of the First year department ?","Who is HOD of the H&AS  department ?","Who is HOD of the Humanities and applied sciences  department ?","Name of HOD of H&AS department ?","Name of HOD of Humanities and applied sciences department ?","HOD of FE ?","Head of department of H & AS ?"],
+			"responses":["Dr. Shivshankar Kore","Profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/prof-upendra-mate' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"social_media",
+			"patterns":["college social media handles ?","facebook","instagram","college facebook page ?","college instagram page ?","do college have social media handles ?","social media handles ?"],
+			"responses":["Facebook: <a style=\"color:#00fff2\" href='https:\/\/www.facebook.com\/APshahTHANE\/?ref=py_c' target='_blank'>Click here!<\/a>","Instagram: <a style=\"color:#00fff2\" href='https:\/\/www.instagram.com\/apsit_thane\/?hl=en' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"study_portal",
+			"patterns":["College moodle ?","study portal for students ?","college study portal ?","apit moodel ?","study portal for college ?"],
+			"responses":["Apsit moodle: <a style=\"color:#00fff2\" href='http:\/\/moodle.apsit.org.in\/moodle\/' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"news",
+			"patterns":["new and announcements ?","news about examination ?","exam time table ?","results of college ?","seat numbers of lastest examination ?","lastest results declared ?","new announcements ?","new and announcements of college ?"],
+			"responses":["For latest news and anncouncements regarding","seat numbers, Exam and results: <a style=\"color:#00fff2\" href='http:\/\/moodle.apsit.org.in\/moodle\/mod\/forum\/view.php?id=4' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"downloads",
+			"patterns":["downloads for students ?","downloads for faculties ?","downloads ?","download forms ?","download documents ?","all dowmloads ?"],
+			"responses":["For latest news and anncouncements regarding","seat numbers, Exam and results: <a style=\"color:#00fff2\" href='http:\/\/moodle.apsit.org.in\/moodle\/mod\/forum\/view.php?id=4' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"counselling",
+			"patterns":["is there counselling in college ?","does college have counselling facility ","counselling ?","does the college have counsellor ?","who is the counsellor of college ?","Name of counsellor ?"],
+			"responses":["we have counselling in college ","to know more : <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/counselling' target='_blank'>Click here!<\/a>","Counsellor: Ms. Darshana K. Jain","Counsellor/Psychologist","profile: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/counsellor' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"comps_department",
+			"patterns":["tell me more about computer department ?","comps department ?","more information about computer department ? ","About computer department","computer department of college ?"],
+			"responses":["To know more about ","Computer department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/computer' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"It_department",
+			"patterns":["tell me more about IT department ?","IT department ?","more information about information technology department ? ","About information technology department","IT department of college ?"],
+			"responses":["To know more about ","IT department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/information-technology-1' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"extc_department",
+			"patterns":["tell me more about extc department ?","Electronics and telecommunication department ?","more information about extc department ? ","About Electronics department","extc department of college ?"],
+			"responses":["To know more about ","EXTC department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/electronics-telecom' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"mech_department",
+			"patterns":["tell me more about mech department ?","mechanical department ?","more information about mechanical department ? ","About mech department","mechanical department of college ?"],
+			"responses":["To know more about ","Mechanical department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/mechanical-engineering-1' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"civil_department",
+			"patterns":["tell me more about civil department ?","civil department ?","more information about civil department ? ","About civil department","civil department of college ?"],
+			"responses":["To know more about ","Civil department: <a style=\"color:#00fff2\" href='https:\/\/www.apsit.edu.in\/civil-engg' target='_blank'>Click here!<\/a>"]
+		},
+		{
+			"tag":"photos",
+			"patterns":["show me photos pf college ?","college pics ?","college photos ? ","show me photos of college ?","how does the college look ?"],
+			"responses":["College photos: ","<img src='https://www.linkpicture.com/q/college1.jpg' alt='APSIT' width='200 height='300'>"," ","<img src='https://www.linkpicture.com/q/college2.jpg' alt='APSIT' width='200 height='300'>"," ","<img src='https://www.linkpicture.com/q/college4.png' alt='APSIT' width='200 height='300'>"]
+		}
+
+
+	]
+}
