@@ -1,0 +1,13 @@
+login: ec2-user
+
+In PuTTY type :
+
+source ~/my_app/env/bin/activate
+
+
+python train.py
+
+python chatbot_final.py
+
+python chatup.py
+
